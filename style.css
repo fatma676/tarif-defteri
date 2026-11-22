@@ -1,0 +1,458 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #dcd3c6;
+    background-image: radial-gradient(#c4b7a6 1px, transparent 1px);
+    background-size: 20px 20px;
+    font-family: 'Kalam', cursive;
+    color: #3d2c22;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 12px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.workspace {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.flip-book {
+    width: 960px;
+    height: 620px;
+    border-radius: 6px;
+}
+
+/* Çizgisiz, Dokulu Vintage Parşömen Kağıdı */
+.page {
+    background-color: #f9f4eb;
+    background-image: 
+        radial-gradient(rgba(165, 142, 115, 0.08) 1px, transparent 0),
+        radial-gradient(circle at 50% 50%, rgba(255, 253, 249, 0.7) 0%, rgba(236, 224, 206, 0.55) 100%);
+    background-size: 14px 14px, 100% 100%;
+    padding: 18px 20px 24px 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e0d3c1;
+    user-select: none;
+}
+
+.page.left-page {
+    box-shadow: inset -16px 0 24px -10px rgba(70, 50, 35, 0.25);
+    border-right: 1px solid #d1c0ab;
+}
+
+.page.right-page {
+    box-shadow: inset 16px 0 24px -10px rgba(70, 50, 35, 0.25);
+    border-left: 1px solid #d1c0ab;
+}
+
+/* Gerçekçi Keten Ciltli Ön ve Arka Kapak */
+.page.hard-cover {
+    background-color: #ebe2d3;
+    background-image: 
+        repeating-linear-gradient(0deg, rgba(130, 110, 85, 0.06) 0px, rgba(130, 110, 85, 0.06) 1px, transparent 1px, transparent 3px),
+        repeating-linear-gradient(90deg, rgba(130, 110, 85, 0.06) 0px, rgba(130, 110, 85, 0.06) 1px, transparent 1px, transparent 3px),
+        radial-gradient(circle at 60% 45%, #f5efe4 0%, #e4d8c5 100%);
+    border: 1.5px solid #c9b9a3;
+    border-radius: 3px 10px 10px 3px;
+    box-shadow: 
+        inset -3px 0 6px rgba(90, 70, 50, 0.15),
+        inset 0 2px 3px rgba(255, 255, 255, 0.6);
+    padding: 28px 28px 28px 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-spine-crease {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 22px;
+    width: 10px;
+    background: linear-gradient(
+        90deg,
+        rgba(95, 75, 55, 0.18) 0%,
+        rgba(255, 255, 255, 0.45) 45%,
+        rgba(95, 75, 55, 0.22) 100%
+    );
+    border-left: 1px solid rgba(120, 95, 70, 0.2);
+    border-right: 1px solid rgba(120, 95, 70, 0.15);
+    pointer-events: none;
+}
+
+.cover-embroidery-layout {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 4px;
+}
+
+.cover-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cover-middle-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+}
+
+.cover-title-wrapper {
+    text-align: center;
+    transform: rotate(-4deg);
+}
+
+.cover-title-embroidered {
+    font-family: 'Caveat', cursive;
+    font-size: 3.6rem;
+    font-weight: 700;
+    color: #463325;
+    line-height: 0.95;
+    text-shadow: 
+        1px 1px 0px rgba(255, 255, 255, 0.75),
+        -0.5px -0.5px 0px rgba(60, 40, 25, 0.25);
+}
+
+.cover-subtitle {
+    font-size: 1.15rem;
+    color: #7a604b;
+}
+
+.cover-mini-flower {
+    color: #b57c6c;
+    font-size: 1.2rem;
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.doodle-svg {
+    filter: drop-shadow(0.5px 1px 0px rgba(255, 255, 255, 0.65));
+}
+
+/* Washi Bant */
+.washi-tape {
+    position: absolute;
+    width: 80px;
+    height: 18px;
+    background-color: rgba(217, 179, 130, 0.6);
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255,255,255,0.35) 5px, rgba(255,255,255,0.35) 10px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    z-index: 2;
+}
+
+.tape-top-left {
+    top: 8px;
+    left: -18px;
+    transform: rotate(-32deg);
+}
+
+.tape-top-right {
+    top: 8px;
+    right: -18px;
+    transform: rotate(32deg);
+    background-color: rgba(186, 145, 128, 0.55);
+}
+
+/* İçindekiler Sayfası */
+.toc-title {
+    font-family: 'Caveat', cursive;
+    font-size: 2.6rem;
+    color: #5c3d28;
+    text-align: center;
+    margin-bottom: 12px;
+    border-bottom: 1.5px dashed #cbb8a2;
+    padding-bottom: 6px;
+}
+
+.toc-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.15rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px dotted #b8a38c;
+}
+
+.toc-item:hover {
+    background-color: rgba(212, 184, 152, 0.28);
+    transform: translateX(4px);
+    color: #8c4a27;
+}
+
+/* --- TEK SAYFAYA TAM SIĞAN TARİF DÜZENİ --- */
+.single-recipe-sheet {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.recipe-header {
+    text-align: center;
+    border-bottom: 1.5px dashed #d6c5b2;
+    padding-bottom: 3px;
+    flex-shrink: 0;
+}
+
+.recipe-title {
+    font-family: 'Caveat', cursive;
+    font-size: 2.05rem;
+    font-weight: 700;
+    color: #4a2e1b;
+    line-height: 1;
+}
+
+.recipe-columns {
+    display: grid;
+    grid-template-columns: 1fr 1.38fr;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+}
+
+.left-col-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 6px;
+}
+
+.col-ingredients {
+    background: rgba(238, 226, 208, 0.45);
+    border: 1px dashed #cbb8a0;
+    border-radius: 10px;
+    padding: 7px 9px;
+}
+
+.col-steps {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding-right: 2px;
+    gap: 6px;
+}
+
+.section-badge {
+    display: inline-block;
+    align-self: flex-start;
+    font-family: 'Caveat', cursive;
+    font-size: 1.28rem;
+    font-weight: 700;
+    color: #6b3f23;
+    margin-bottom: 4px;
+    border-bottom: 1.5px solid #cfa982;
+    line-height: 1;
+}
+
+/* Malzemeler Listesi */
+.ingredient-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.72rem;
+    line-height: 1.16;
+    word-wrap: break-word;
+}
+
+.ingredient-list li {
+    cursor: pointer;
+    padding-left: 12px;
+    position: relative;
+}
+
+.ingredient-list li::before {
+    content: "♥";
+    position: absolute;
+    left: 0;
+    color: #a36647;
+    font-size: 0.65rem;
+    top: 1px;
+}
+
+.ingredient-list li.checked {
+    text-decoration: line-through;
+    color: #9e8e7e;
+}
+
+/* Malzemeler Altındaki Görsel Alanı */
+.ingredients-illustration {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 0;
+    padding: 2px;
+}
+
+.ingredients-illustration img {
+    width: 100%;
+    max-width: 165px;
+    max-height: 125px;
+    object-fit: contain;
+    border-radius: 14px;
+    mix-blend-mode: multiply;
+    -webkit-mask-image: radial-gradient(ellipse at center, black 64%, transparent 98%);
+    mask-image: radial-gradient(ellipse at center, black 64%, transparent 98%);
+    transform: rotate(-1.5deg);
+}
+
+/* Hazırlanışı Adımları */
+.steps-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.72rem;
+    line-height: 1.17;
+    word-wrap: break-word;
+}
+
+.steps-list li {
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+}
+
+.step-num {
+    background: #8c6244;
+    color: #fff;
+    min-width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.65rem;
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+/* Sağ Sütun Altındaki Püf Noktası Kutusu */
+.tips-box {
+    padding: 5px 8px;
+    background: rgba(244, 231, 211, 0.7);
+    border: 1px dashed #b59472;
+    border-radius: 8px;
+    font-size: 0.70rem;
+    line-height: 1.16;
+    color: #4f3826;
+    margin: auto 0;
+}
+
+.tips-title {
+    font-weight: 700;
+    color: #874b27;
+    margin-right: 4px;
+}
+
+/* En Alt Hizalı Söz ve Emoji Satırı (Her İki Sayfada Aynı Hizada) */
+.recipe-footer-area {
+    flex-shrink: 0;
+    height: 26px;
+    display: flex;
+    align-items: center;
+}
+
+.bottom-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+}
+
+.page-quote {
+    font-family: 'Caveat', cursive;
+    font-size: 1.18rem;
+    color: #6e523d;
+    white-space: nowrap;
+}
+
+.footer-emojis {
+    font-size: 1.15rem;
+    opacity: 0.85;
+    white-space: nowrap;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 6px;
+    font-size: 0.75rem;
+    color: #9c8873;
+}
+
+.page-number.left-num {
+    left: 16px;
+}
+
+.page-number.right-num {
+    right: 16px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: rgba(251, 247, 240, 0.9);
+    padding: 8px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.nav-btn {
+    background: #7a5438;
+    color: #fbf7f0;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 18px;
+    font-family: 'Kalam', cursive;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.nav-btn:hover {
+    background: #593b25;
+}
+
+#page-indicator {
+    font-size: 1rem;
+    color: #4a3525;
+    min-width: 120px;
+    text-align: center;
+}
