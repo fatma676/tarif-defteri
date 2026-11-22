@@ -67,17 +67,17 @@ const recipes = [
             "Üzeri için: Pudra şekeri"
         ],
         steps: [
-            "İç harcı için tavaya rendelenm iş elma, şeker ve tarçını ekleyerek pişmeye bırakalım.",
-            "Yumurta, tereyağ ve şekeri karıştırıp un ve kabartma tozunu ekleyerek hamuru yoğuralım.",
-            "15 dakika dinlenen hamuru ikiye ayırıp birini kalıba yayalım",
-            "Elmalı harcı üzerine dökelim ve diğer hamuru da üzerine kapatalım.",
-            "Önceden ısıtılmış 180°C fırında 30-35 dakika pişirelim.",
-            "Soğuduktan sonra üzerine pudra şekeri serpip servis edelim."
+            "İç harcı için tavaya rendelenm iş elma, şeker ve tarçını ekleyerek pişmeye bırak.",
+            "Yumurta, tereyağ ve şekeri karıştırıp un ve kabartma tozunu ekleyerek hamuru yoğur.",
+            "15 dakika dinlenen hamuru ikiye ayırıp birini kalıba yay.",
+            "Elmalı harcı üzerine dökelim ve diğer hamuru da üzerine kapat.",
+            "Önceden ısıtılmış 180°C fırında 30-35 dakika pişir.",
+            "Soğuduktan sonra üzerine pudra şekeri serpip servis et."
 
         ],
-        tips: "    
+        tips: "Küçük hamuru üzerine rendelemeden önce buzlukta beklet.",
         quote: "Yiyenlerin hayran kaldığı o tarif! 🍎",
-        image: ""
+        image: "assets/elmali_tart.png"
     },
 
     // --- 4. SAYFA ---
