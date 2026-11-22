@@ -91,101 +91,133 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
     bookContainer.appendChild(frontCover);
 
-    // 2. SOL İÇ KAPAK SAYFASI
-    const insideFrontCover = document.createElement("div");
-    insideFrontCover.className = "page left-page";
-    insideFrontCover.innerHTML = ``;
-    bookContainer.appendChild(insideFrontCover);
-
-    // 3. SAĞ SAYFA: İÇİNDEKİLER
-    const tocPage = document.createElement("div");
-    tocPage.className = "page right-page";
-    let tocItemsHTML = "";
+    // Dolu tarifleri topla (İçindekiler iki sayfaya dağılacak)
+    const filledRecipes = [];
     recipes.forEach((recipe, index) => {
-        const targetPageIndex = 3 + index;
-        tocItemsHTML += `
-            <li class="toc-item" data-target-page="${targetPageIndex}">
-                <span>✦ ${recipe.title}</span>
-                <span>s. ${index + 1}</span>
-            </li>
-        `;
+        if (recipe.title && recipe.title.trim() !== "") {
+            filledRecipes.push({
+                title: recipe.title,
+                pageNum: index + 1,
+                targetPageIndex: 3 + index
+            });
+        }
     });
 
-    tocPage.innerHTML = `
+    const maxItemsPerTocPage = 16; // Her İçindekiler sayfasında en fazla 16 satır
+    const leftTocItems = filledRecipes.slice(0, maxItemsPerTocPage);
+    const rightTocItems = filledRecipes.slice(maxItemsPerTocPage, maxItemsPerTocPage * 2);
+
+    const buildTocListHTML = (items) => items.map(item => `
+        <li class="toc-item" data-target-page="${item.targetPageIndex}">
+            <span>✦ ${item.title}</span>
+            <span>s. ${item.pageNum}</span>
+        </li>
+    `).join("");
+
+    // 2. SOL SAYFA: İÇİNDEKİLER (1. Bölüm)
+    const tocLeftPage = document.createElement("div");
+    tocLeftPage.className = "page left-page";
+    tocLeftPage.innerHTML = `
+        <div class="washi-tape tape-top-left"></div>
+        <h2 class="toc-title">İçindekiler</h2>
+        <p class="toc-hint">Gitmek istediğin tarifin üzerine tıkla ✨</p>
+        <ul class="toc-list">
+            ${buildTocListHTML(leftTocItems)}
+        </ul>
+    `;
+    bookContainer.appendChild(tocLeftPage);
+
+    // 3. SAĞ SAYFA: İÇİNDEKİLER (2. Bölüm - Devamı)
+    const tocRightPage = document.createElement("div");
+    tocRightPage.className = "page right-page";
+    tocRightPage.innerHTML = `
         <div class="washi-tape tape-top-right"></div>
         <h2 class="toc-title">İçindekiler</h2>
-        <p style="text-align:center; color:#7d624d; font-size:0.95rem; margin-bottom:14px;">Gitmek istediğin tarifin üzerine tıkla ✨</p>
+        <p class="toc-hint">&nbsp;</p>
         <ul class="toc-list">
-            ${tocItemsHTML}
+            ${buildTocListHTML(rightTocItems)}
         </ul>
-        <div class="page-quote" style="position:absolute; bottom:22px; left:0; right:0; text-align:center;">
+        <div class="page-quote" style="position:absolute; bottom:18px; left:0; right:0; text-align:center;">
             "Mutfakta sevgiyle pişen her şey şifadır."
         </div>
     `;
-    bookContainer.appendChild(tocPage);
+    bookContainer.appendChild(tocRightPage);
 
-    // 4. HER TARİF İÇİN TEK BİR TAM SAYFA
+    // 4. TÜM TARİF VE BOŞ DEFTER SAYFALARI (50 Sayfa)
     recipes.forEach((recipe, index) => {
         const isLeft = index % 2 === 0;
         const recipePage = document.createElement("div");
         recipePage.className = `page ${isLeft ? "left-page" : "right-page"}`;
 
-        const ingredientsHTML = recipe.ingredients
-            .map(item => `<li onclick="this.classList.toggle('checked')">${item}</li>`)
-            .join("");
+        const hasRecipe = recipe.title && recipe.title.trim() !== "";
 
-        const stepsHTML = recipe.steps
-            .map((step, i) => `<li><span class="step-num">${i + 1}</span><span>${step}</span></li>`)
-            .join("");
+        if (hasRecipe) {
+            const validIngredients = (recipe.ingredients || []).filter(item => item.trim() !== "");
+            const validSteps = (recipe.steps || []).filter(step => step.trim() !== "");
 
-        // Görsel her tarifte Malzemeler kutusunun hemen altına yerleşir
-        const leftImageHTML = recipe.image
-            ? `<div class="ingredients-illustration"><img src="${recipe.image}" alt="${recipe.title}"></div>`
-            : "";
+            const ingredientsHTML = validIngredients
+                .map(item => `<li onclick="this.classList.toggle('checked')">${item}</li>`)
+                .join("");
 
-        // Püf noktası sağ sütunda Hazırlanışı adımlarının altına yerleşir
-        const tipsHTML = (recipe.tips && recipe.tips.trim() !== "")
-            ? `<div class="tips-box"><span class="tips-title">💡 Püf Noktası:</span>${recipe.tips}</div>`
-            : "";
+            const stepsHTML = validSteps
+                .map((step, i) => `<li><span class="step-num">${i + 1}</span><span>${step}</span></li>`)
+                .join("");
 
-        recipePage.innerHTML = `
-            <div class="washi-tape ${isLeft ? "tape-top-left" : "tape-top-right"}"></div>
-            <div class="single-recipe-sheet">
-                <div class="recipe-header">
-                    <h2 class="recipe-title">${recipe.title}</h2>
-                </div>
+            const leftImageHTML = (recipe.image && recipe.image.trim() !== "")
+                ? `<div class="ingredients-illustration"><img src="${recipe.image}" alt="${recipe.title}"></div>`
+                : "";
 
-                <div class="recipe-columns">
-                    <div class="left-col-wrapper">
-                        <div class="col-ingredients">
-                            <span class="section-badge">Malzemeler</span>
-                            <ul class="ingredient-list">
-                                ${ingredientsHTML}
-                            </ul>
+            const tipsHTML = (recipe.tips && recipe.tips.trim() !== "")
+                ? `<div class="tips-box"><span class="tips-title">💡 Püf Noktası:</span>${recipe.tips}</div>`
+                : "";
+
+            recipePage.innerHTML = `
+                <div class="washi-tape ${isLeft ? "tape-top-left" : "tape-top-right"}"></div>
+                <div class="single-recipe-sheet">
+                    <div class="recipe-header">
+                        <h2 class="recipe-title">${recipe.title}</h2>
+                    </div>
+
+                    <div class="recipe-columns">
+                        <div class="left-col-wrapper">
+                            <div class="col-ingredients">
+                                <span class="section-badge">Malzemeler</span>
+                                <ul class="ingredient-list">
+                                    ${ingredientsHTML}
+                                </ul>
+                            </div>
+                            ${leftImageHTML}
                         </div>
-                        ${leftImageHTML}
-                    </div>
 
-                    <div class="col-steps">
-                        <div>
-                            <span class="section-badge">Hazırlanışı</span>
-                            <ul class="steps-list">
-                                ${stepsHTML}
-                            </ul>
+                        <div class="col-steps">
+                            <div>
+                                <span class="section-badge">Hazırlanışı</span>
+                                <ul class="steps-list">
+                                    ${stepsHTML}
+                                </ul>
+                            </div>
+                            ${tipsHTML}
                         </div>
-                        ${tipsHTML}
                     </div>
-                </div>
 
-                <div class="recipe-footer-area">
-                    <div class="bottom-row">
-                        <span class="page-quote">${recipe.quote || ""}</span>
-                        <span class="footer-emojis">🍂 ✨</span>
+                    <div class="recipe-footer-area">
+                        <div class="bottom-row">
+                            <span class="page-quote">${recipe.quote || "Afiyet olsun... ✨"}</span>
+                            <span class="footer-emojis">🍂 ✨</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <span class="page-number ${isLeft ? "left-num" : "right-num"}">${index + 1}</span>
-        `;
+                <span class="page-number ${isLeft ? "left-num" : "right-num"}">${index + 1}</span>
+            `;
+        } else {
+            recipePage.innerHTML = `
+                <div style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0.32;">
+                    <span style="font-family: 'Caveat', cursive; font-size: 1.5rem; color: #8c735b;">✦ Yeni Tarif Sayfası ✦</span>
+                </div>
+                <span class="page-number ${isLeft ? "left-num" : "right-num"}">${index + 1}</span>
+            `;
+        }
+
         bookContainer.appendChild(recipePage);
     });
 

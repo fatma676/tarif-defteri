@@ -173,39 +173,48 @@ body {
     background-color: rgba(186, 145, 128, 0.55);
 }
 
-/* İçindekiler Sayfası */
+/* --- İKİ SAYFALIK KOMPAKT İÇİNDEKİLER DÜZENİ --- */
 .toc-title {
     font-family: 'Caveat', cursive;
-    font-size: 2.6rem;
+    font-size: 2.25rem;
     color: #5c3d28;
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     border-bottom: 1.5px dashed #cbb8a2;
-    padding-bottom: 6px;
+    padding-bottom: 4px;
+    line-height: 1;
+}
+
+.toc-hint {
+    text-align: center;
+    color: #7d624d;
+    font-size: 0.82rem;
+    margin-bottom: 8px;
 }
 
 .toc-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
 }
 
 .toc-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.15rem;
-    padding: 6px 10px;
-    border-radius: 8px;
+    font-size: 0.88rem;
+    line-height: 1.15;
+    padding: 3px 8px;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease;
-    border-bottom: 1px dotted #b8a38c;
+    border-bottom: 1px dotted #cbb8a2;
 }
 
 .toc-item:hover {
-    background-color: rgba(212, 184, 152, 0.28);
-    transform: translateX(4px);
+    background-color: rgba(212, 184, 152, 0.3);
+    transform: translateX(3px);
     color: #8c4a27;
 }
 
@@ -380,7 +389,7 @@ body {
     margin-right: 4px;
 }
 
-/* En Alt Hizalı Söz ve Emoji Satırı (Her İki Sayfada Aynı Hizada) */
+/* En Alt Hizalı Söz ve Emoji Satırı */
 .recipe-footer-area {
     flex-shrink: 0;
     height: 26px;

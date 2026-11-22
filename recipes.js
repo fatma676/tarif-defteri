@@ -1,4 +1,5 @@
 const recipes = [
+    // --- 1. SAYFA ---
     {
         id: "sutlac",
         title: "Sütlaç",
@@ -23,6 +24,8 @@ const recipes = [
         quote: "Afiyet ve şifa olsun... 🍂",
         image: "assets/sutlac.png"
     },
+
+    // --- 2. SAYFA ---
     {
         id: "islak-kek",
         title: "Islak Kek",
@@ -47,5 +50,215 @@ const recipes = [
         tips: "Sıcak kekin üzerine biraz ılımış sosu dökmek kekin sosu daha iyi çekmesini sağlar.",
         quote: "Çay yanına en güzel klasik... ☕",
         image: "assets/islak_kek.png"
+    },
+
+    // --- 3. SAYFA (Doldurmak için title kısmına tarif adını yazman yeterli) ---
+    {
+        title: "Elmalı Turta",
+        ingredients: [
+            "1 yumurta",
+            "125 gr tereyağı",
+            "Yarım su bardağı şeker",
+            "Yarım paket kabartma tozu",
+            "2 su bardağı un",
+            "4 adet elma",
+            "2 yemek kaşığı toz şeker",
+            "1 tatlı kaşığı tarçın",
+            "Üzeri için: Pudra şekeri"
+        ],
+        steps: [
+            "İç harcı için tavaya rendelenm iş elma, şeker ve tarçını ekleyerek pişmeye bırakalım.",
+            "Yumurta, tereyağ ve şekeri karıştırıp un ve kabartma tozunu ekleyerek hamuru yoğuralım.",
+            "15 dakika dinlenen hamuru ikiye ayırıp birini kalıba yayalım",
+            "Elmalı harcı üzerine dökelim ve diğer hamuru da üzerine kapatalım.",
+            "Önceden ısıtılmış 180°C fırında 30-35 dakika pişirelim.",
+            "Soğuduktan sonra üzerine pudra şekeri serpip servis edelim."
+
+        ],
+        tips: "    
+        quote: "Yiyenlerin hayran kaldığı o tarif! 🍎",
+        image: ""
+    },
+
+    // --- 4. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 5. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 6. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 7. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 8. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 9. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 10. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 11. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 12. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 13. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 14. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 15. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 16. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 17. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 18. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 19. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
+    },
+
+    // --- 20. SAYFA ---
+    {
+        title: "",
+        ingredients: ["", "", ""],
+        steps: ["", "", ""],
+        tips: "",
+        quote: "",
+        image: ""
     }
 ];
+
+// Defter toplam 50 yaprak olsun diye kalan boş sayfaları otomatik tamamlar (21'den 50'ye kadar)
+while (recipes.length < 50) {
+    recipes.push({
+        title: "",
+        ingredients: [],
+        steps: [],
+        tips: "",
+        quote: "",
+        image: ""
+    });
+}
